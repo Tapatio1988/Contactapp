@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection, AngularFirestoreDocument } from 'angularfire2/firestore';
-import { Observable, from } from 'rxjs'
-import { map } from 'rxjs/operators'
+import { Observable } from 'rxjs'
+import { map } from "rxjs/operators";
 import { Contact } from '../models/Contact'
 
 
@@ -23,31 +23,44 @@ export class ContactService {
   }
 
   getContacts(): Observable<Contact[]> {
-    return this.contactCollection.snapshotChanges().pipe(
-      map(actions =>
-        actions.map(a => {
-          const data = a.payload.doc.data()
-          const id = a.payload.doc.id
-          return { id, ...data }
-      }),  
-    ),
-    )
+    this.contacts = this.contactCollection.snapshotChanges().pipe(
+      map(changes => changes.map(action => {
+        const data = action.payload.doc.data() as Contact;
+        data.id = action.payload.doc.id;
+        return data;
+      })
+    ));
+
+    return this.contacts
   }
+
 
   newContact(contact: Contact) {
-    return from(this.contactCollection.add(contact).then(data => data.id))
+    this.contactCollection.add(contact);
   }
 
-  getContact(id: string): Observable<any> {
-    return this.contactCollection.doc(id).valueChanges()
+  getContact(id: string): Observable<Contact> {
+    this.contactDoc = this.afs.doc<Contact>(`contact/${id}`);
+    this.contact = this.contactDoc.snapshotChanges().pipe(map(action => {
+      if(action.payload.exists === false) {
+        return null;
+      } else {
+        const data = action.payload.data() as Contact;
+        data.id = action.payload.id;
+        return data;
+      }
+    }));
+
+    return this.contact;
   }
 
   updateContact(contact: Contact) {
-    this.contactDoc = this.afs.doc(`contact/detail/${contact.id}`)
+    this.contactDoc = this.afs.doc(`contact/${contact.id}`)
     this.contactDoc.update(contact)
   }
 
   deleteContact(contact: Contact) {
-    this.contactDoc = this.afs.doc(`contact/detail/${contact.id}`)
+    this.contactDoc = this.afs.doc(`contact/${contact.id}`)
+    this.contactDoc.delete();
   }
 }

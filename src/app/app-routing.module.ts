@@ -9,7 +9,7 @@ import { ContactsComponent} from './components/contacts/contacts.component'
 import { DetailContactComponent } from './components/detail-contact/detail-contact.component'
 import { EditContactComponent } from './components/edit-contact/edit-contact.component'
 import { NotFoundComponent } from './components/not-found/not-found.component'
-import { SidebarComponent } from './components/sidebar/sidebar.component'
+
 
 const routes: Routes = [
   {path: '', component: DashboardComponent},

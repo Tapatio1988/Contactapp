@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router'
 import { FlashMessagesService } from 'angular2-flash-messages'
 import { Contact } from '../../models/Contact'
 
+
 @Component({
   selector: 'app-detail-contact',
   templateUrl: './detail-contact.component.html',
@@ -15,22 +16,15 @@ export class DetailContactComponent implements OnInit {
 
   constructor(
     private contactService: ContactService,
-    private router: Router,
     private route: ActivatedRoute,
-    private flashMessage: FlashMessagesService,
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.id = this.route.snapshot.params['id'];
+    this.id = this.route.snapshot.params['id']; 
+  
+    this.contactService.getContact(this.id).subscribe(contact => 
+      this.contact = contact
+    ) 
 
-    this.getContactDetails();
-   
   }
-  private getContactDetails(){
-    this.contactService.getContact(this.id).subscribe(contact => {
-      console.log(contact)
-      this.contact = contact;
-    });
-  }
-
 }

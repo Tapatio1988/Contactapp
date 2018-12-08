@@ -23,7 +23,7 @@
           <span class="float-right">
             <a routerLink="/contact/detail/{{ contact.id }}" class="btn btn-dark btn-small mr-2"><i class="fa fa-search mr-1"></i>View</a>
             <a routerLink="/contact/edit/{{ contact.id }}" class="btn btn-warning btn-small mr-2"><i class="fa fa-edit mr-1"></i>Edit</a>
-            <button (click)="onDeleteClick()" class="btn btn-danger btn-small"><i class="fa fa-trash mr-1"></i>Delete</button>
+            <button (click)="onDeleteClick(contact.id)" class="btn btn-danger btn-small"><i class="fa fa-trash mr-1"></i>Delete</button>
         </span>
         </td>
     </tr>

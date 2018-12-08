@@ -3,7 +3,7 @@ import {ContactService } from '../../services/contact.service'
 import { Router, ActivatedRoute, Params,} from '@angular/router'
 import { FlashMessagesService } from 'angular2-flash-messages'
 import { Contact } from '../../models/Contact'
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms'
+
 
 
 @Component({
@@ -33,10 +33,7 @@ export class EditContactComponent implements OnInit {
     this.id = this.route.snapshot.params['id']
     this.contactService.getContact(this.id).subscribe(contact => this.contact = contact)
   }
-
-
-  
-
+ 
   onSubmit({value, valid}: {value: Contact, valid: boolean}){
     if(!valid) {
       this.flashMessage.show('Invalid Form', {

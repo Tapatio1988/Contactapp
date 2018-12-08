@@ -10,13 +10,13 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ContactsComponent } from './components/contacts/contacts.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { AddContactComponent } from './components/add-contact/add-contact.component';
 import { EditContactComponent } from './components/edit-contact/edit-contact.component';
 import { DetailContactComponent } from './components/detail-contact/detail-contact.component';
 import { NotFoundComponent } from './components/not-found/not-found.component';
 import { AppRoutingModule } from './app-routing.module';
 import { FormsModule } from '@angular/forms'
+import { ContactService } from './services/contact.service';
 
 
 @NgModule({
@@ -25,7 +25,6 @@ import { FormsModule } from '@angular/forms'
     NavbarComponent,
     DashboardComponent,
     ContactsComponent,
-    SidebarComponent,
     AddContactComponent,
     EditContactComponent,
     DetailContactComponent,
